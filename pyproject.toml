@@ -1,7 +1,38 @@
 [project]
 name = "subscription-2vless"
-version = "1.1.0"
+description ="A utility for downloading VPN subscriptions and extracting supported VPN configurations as links"
+keywords = [
+    "vpn",
+    "vpn-subscription",
+    "subscription-extractor",
+    "proxy",
+    "proxy-links",
+    "proxy-parser",
+    "proxy-subscription",
+    "vpn-links",
+    "vpn-parser",
+    "vpn-config",
+    "link-extractor",
+    "link-parser",
+    "vless",
+    "vmess",
+    "v2ray",
+    "xray",
+    "shadowsocks",
+    "shadowsocksr",
+    "trojan",
+    "hysteria",
+    "hysteria2",
+    "hy2",
+    "tuic",
+    "wireguard",
+    "socks",
+    "socks5",
+]
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
+version = "1.1.1"
 requires-python = ">=3.9"
 dependencies = [
     "httpx>=0.28.1,<1"
@@ -13,7 +44,7 @@ Repository = "https://github.com/john-carrington/subscription-2vless"
 Issues = "https://github.com/john-carrington/subscription-2vless/issues"
 
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project.scripts]
