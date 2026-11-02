@@ -7,6 +7,11 @@ dependencies = [
     "httpx>=0.28.1,<1"
 ]
 
+[project.urls]
+Homepage = "https://github.com/john-carrington/subscription-2vless"
+Repository = "https://github.com/john-carrington/subscription-2vless"
+Issues = "https://github.com/john-carrington/subscription-2vless/issues"
+
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
