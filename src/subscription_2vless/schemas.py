@@ -3,7 +3,7 @@ import json
 from typing import Any, ClassVar, Self
 
 
-class VPN(str):
+class VPNType(str):
     schemes: ClassVar[tuple[str, ...]] = ()
 
     def __new__(cls, value: str) -> Self:
@@ -27,11 +27,11 @@ class VPN(str):
         return f"{type(self).__name__}({str.__repr__(self)})"
 
 
-class Vless(VPN):
+class Vless(VPNType):
     schemes = ("vless",)
 
 
-class Vmess(VPN):
+class Vmess(VPNType):
     schemes = ("vmess",)
 
     @property
@@ -44,7 +44,7 @@ class Vmess(VPN):
         return payload
 
 
-class Shadowsocks(VPN):
+class Shadowsocks(VPNType):
     schemes = ("ss",)
 
     @property
@@ -61,39 +61,39 @@ class Shadowsocks(VPN):
         return method, password
 
 
-class ShadowsocksR(VPN):
+class ShadowsocksR(VPNType):
     schemes = ("ssr",)
 
 
-class Trojan(VPN):
+class Trojan(VPNType):
     schemes = ("trojan",)
 
 
-class Hysteria(VPN):
+class Hysteria(VPNType):
     schemes = ("hysteria",)
 
 
-class Hysteria2(VPN):
+class Hysteria2(VPNType):
     schemes = ("hysteria2", "hy2")
 
 
-class Tuic(VPN):
+class Tuic(VPNType):
     schemes = ("tuic",)
 
 
-class WireGuard(VPN):
+class WireGuard(VPNType):
     schemes = ("wireguard", "wg")
 
 
-class Socks(VPN):
+class Socks(VPNType):
     schemes = ("socks", "socks4", "socks5")
 
 
-class Http(VPN):
+class Http(VPNType):
     schemes = ("http",)
 
 
-class Https(VPN):
+class Https(VPNType):
     schemes = ("https",)
 
 
@@ -117,7 +117,7 @@ _REGISTRY = {
 }
 
 
-def parse_vpn_link(value: str) -> VPN:
+def parse_type_link(value: str) -> VPNType:
     value = value.strip()
     scheme, separator, _ = value.partition("://")
     if not separator:

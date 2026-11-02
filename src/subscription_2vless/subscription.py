@@ -1,12 +1,11 @@
 import base64
 import binascii
 import uuid
-from collections.abc import Mapping
 
 import httpx
 from httpx import Headers
 
-from .links import VPN, Vless, parse_vpn_link
+from subscription_2vless.schemas import VPNType, parse_type_link
 
 
 class SubscriptionHeaders(Headers):
@@ -24,14 +23,11 @@ class SubscriptionHeaders(Headers):
         )
 
 
-VlessHeader = SubscriptionHeaders
-
-
 def get_vpn_links_from_subscription(
     url: str,
-    headers: Mapping[str, str] | None = None,
-) -> list[VPN]:
-    request_headers = headers if headers is not None else SubscriptionHeaders()
+    headers: SubscriptionHeaders | None = None,
+) -> list[VPNType]:
+    request_headers = headers if headers else SubscriptionHeaders()
     with httpx.Client(timeout=10.0, follow_redirects=True) as session:
         response = session.get(str(url), headers=request_headers)
 
@@ -46,18 +42,7 @@ def get_vpn_links_from_subscription(
     links = []
     for item in text.split():
         try:
-            links.append(parse_vpn_link(item))
+            links.append(parse_type_link(item))
         except ValueError:
             pass
     return links
-
-
-def get_vless_from_subscription(
-    url: str,
-    headers: Mapping[str, str] | None = None,
-) -> list[Vless]:
-    return [
-        link
-        for link in get_vpn_links_from_subscription(url, headers)
-        if isinstance(link, Vless)
-    ]

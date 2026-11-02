@@ -1,5 +1,4 @@
-from .links import (
-    VPN,
+from subscription_2vless.schemas import (
     Http,
     Https,
     Hysteria,
@@ -11,18 +10,16 @@ from .links import (
     Tuic,
     Vless,
     Vmess,
+    VPNType,
     WireGuard,
-    parse_vpn_link,
+    parse_type_link,
 )
-from .subscription import (
+from subscription_2vless.subscription import (
     SubscriptionHeaders,
-    VlessHeader,
-    get_vless_from_subscription,
     get_vpn_links_from_subscription,
 )
 
 __all__ = [
-    "VPN",
     "Http",
     "Https",
     "Hysteria",
@@ -33,11 +30,10 @@ __all__ = [
     "SubscriptionHeaders",
     "Trojan",
     "Tuic",
+    "VPNType",
     "Vless",
-    "VlessHeader",
     "Vmess",
     "WireGuard",
-    "get_vless_from_subscription",
     "get_vpn_links_from_subscription",
-    "parse_vpn_link",
+    "parse_type_link",
 ]

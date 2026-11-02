@@ -5,40 +5,40 @@ from pathlib import Path
 
 import httpx
 
-from .subscription import get_vpn_links_from_subscription
+from subscription_2vless.subscription import get_vpn_links_from_subscription
 
-_DEFAULT_OUTPUT_FILE = Path("vpn-links.txt")
+_DEFAULT_OUTPUT_FILE = Path("links.txt")
 
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="vpn-links",
+        prog="subscription-2vless",
         description=(
             "Fetch a VPN subscription, display all supported connection URLs, "
-            "and optionally save them to a text file."
+            "and optionally save them to a text file"
         ),
     )
     parser.add_argument(
         "url",
         nargs="?",
-        help="Subscription URL. If omitted, the CLI asks for it interactively.",
+        help="Subscription URL. If omitted, the CLI asks for it interactively",
     )
     parser.add_argument(
         "-o",
         "--output",
         type=Path,
         metavar="FILE",
-        help="Save all discovered URLs to FILE without asking for a filename.",
+        help="Save all discovered URLs to FILE without asking for a filename",
     )
     parser.add_argument(
         "--no-save",
         action="store_true",
-        help="Do not offer to save the discovered URLs.",
+        help="Do not offer to save the discovered URLs",
     )
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite the output file if it already exists (requires --output).",
+        help="Overwrite the output file if it already exists (requires --output)",
     )
     return parser
 
@@ -84,7 +84,6 @@ def _write_urls(urls: Sequence[str], output: Path, *, force: bool) -> int:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    """Run the ``vpn-links`` command-line application."""
     parser = _build_parser()
     args = parser.parse_args(argv)
 
