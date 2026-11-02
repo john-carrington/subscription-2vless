@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import sys
 from collections.abc import Sequence
@@ -53,7 +55,7 @@ def _ask_to_save() -> bool:
 
 def _ask_for_output_path() -> Path | None:
     try:
-        value = input(f"Output file [{_DEFAULT_OUTPUT_FILE}]: ").strip()
+        value = input(f"\nOutput file [{_DEFAULT_OUTPUT_FILE}]: ").strip()
     except EOFError:
         return None
     return Path(value) if value else _DEFAULT_OUTPUT_FILE
@@ -63,7 +65,7 @@ def _write_urls(urls: Sequence[str], output: Path, *, force: bool) -> int:
     if output.exists() and not force:
         try:
             answer = (
-                input(f"File '{output}' already exists. Overwrite it? [y/N]: ")
+                input(f"\nFile '{output}' already exists. Overwrite it? [y/N]: ")
                 .strip()
                 .casefold()
             )
@@ -76,10 +78,10 @@ def _write_urls(urls: Sequence[str], output: Path, *, force: bool) -> int:
     try:
         output.write_text("\n".join(urls) + "\n", encoding="utf-8")
     except OSError as exc:
-        print(f"Could not write '{output}': {exc}", file=sys.stderr)
+        print(f"\nCould not write '{output}': {exc}", file=sys.stderr)
         return 1
 
-    print(f"Saved {len(urls)} URL(s) to '{output}'.")
+    print(f"\nSaved {len(urls)} URL(s) to '{output}'.")
     return 0
 
 
@@ -111,7 +113,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     if not links:
-        print("No supported VPN URLs were found.")
+        print("\nNo supported VPN URLs were found.")
         return 0
 
     urls = [str(link) for link in links]
