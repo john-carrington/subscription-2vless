@@ -4,11 +4,12 @@ import uuid
 from collections.abc import Mapping
 
 import httpx
+from httpx import Headers
 
 from .links import VPN, Vless, parse_vpn_link
 
 
-class SubscriptionHeaders(dict[str, str]):
+class SubscriptionHeaders(Headers):
     def __init__(
         self,
         *,
@@ -54,8 +55,6 @@ def get_vpn_links_from_subscription(
 def get_vless_from_subscription(
     url: str,
     headers: Mapping[str, str] | None = None,
-    *,
-    client: httpx.Client | None = None,
 ) -> list[Vless]:
     return [
         link
