@@ -124,10 +124,10 @@ The following HTTP headers are used by default:
 
 | Header | Default value |
 |---|---|
-| `X-DEVICE-OS` | `iOS` |
-| `X-VER-OS` | `18.5` |
+| `X-DEVICE-OS` | `Android` |
+| `X-VER-OS` | `14` |
 | `X-HWID` | `6ba7b811-9dad-11d1-80b4-00c04fd430c8` |
-| `User-Agent` | `INCY/3.8.1/iOS` |
+| `User-Agent` | `Incy/1.2.0 (Android; 14)` |
 
 You can override them using `SubscriptionHeaders`:
 
