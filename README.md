@@ -1,6 +1,6 @@
 # subscription-2vless
 
-A utility for downloading VPN subscriptions and extracting supported VPN configurations as links. It reads plain or Base64 link lists and converts VLESS/TCP/REALITY outbounds from Xray JSON configs into links, preserving profile remarks and outbound tags as link names.
+A utility for downloading VPN subscriptions and extracting supported VPN configurations as links
 
 ---
 
@@ -118,28 +118,6 @@ link = parse_type_link("vless://uuid@example.com:443")
 print(type(link).__name__)  # Vless
 ```
 
-## Custom HTTP Headers
-
-The following HTTP headers are used by default:
-
-| Header | Default value |
-|---|---|
-| `User-Agent` | `INCY/3.9.1/<host OS>` |
-| `Accept` | `*/*` |
-| `Accept-Language` | Detected device locale |
-| `X-APP-VERSION` | `3.9.1` |
-| `X-CLIENT` | `INCY` |
-| `X-DEVICE-LOCALE` | Detected device locale |
-| `X-DEVICE-OS` | Detected host OS (for example, `Windows`) |
-| `X-VER-OS` | Detected host OS release |
-| `X-HWID` | Stable uppercase UUID generated from host identifiers on Windows/Linux |
-| `X-DEVICE-MODEL` | Detected system model; generic desktop label if unavailable |
-| `X-DEVICE-ID` | Same as `X-HWID` on Android only |
-
-On Windows and Linux, the default HWID follows INCY's documented desktop algorithm. The docs do not specify which 128 digest bits `hashToUuid` uses; this implementation uses the first 128. An Android HWID requires Android-specific device identifiers; pass that HWID explicitly if you need to identify as an existing Android device. INCY documents `Accept-Encoding` only for iOS, so this desktop client does not send it.
-
-You can override them using `SubscriptionHeaders`:
-
 ```python
 from subscription_2vless import (
     SubscriptionHeaders,
@@ -147,6 +125,9 @@ from subscription_2vless import (
 )
 
 headers = SubscriptionHeaders(
+    X_DEVICE_OS="Android",
+    X_VER_OS="14",
+    HWID=None,  # Generate a random UUID
     X_DEVICE_MODEL="Windows Desktop",
     user_agent="MyApplication/1.0",
 )
