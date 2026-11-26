@@ -118,19 +118,6 @@ link = parse_type_link("vless://uuid@example.com:443")
 print(type(link).__name__)  # Vless
 ```
 
-## Custom HTTP Headers
-
-The following HTTP headers are used by default:
-
-| Header | Default value |
-|---|---|
-| `X-DEVICE-OS` | `Android` |
-| `X-VER-OS` | `14` |
-| `X-HWID` | `6ba7b811-9dad-11d1-80b4-00c04fd430c8` |
-| `User-Agent` | `Incy/1.2.0 (Android; 14)` |
-
-You can override them using `SubscriptionHeaders`:
-
 ```python
 from subscription_2vless import (
     SubscriptionHeaders,
@@ -141,6 +128,7 @@ headers = SubscriptionHeaders(
     X_DEVICE_OS="Android",
     X_VER_OS="14",
     HWID=None,  # Generate a random UUID
+    X_DEVICE_MODEL="Windows Desktop",
     user_agent="MyApplication/1.0",
 )
 
