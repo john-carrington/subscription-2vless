@@ -113,8 +113,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     if not links:
-        print("\nNo supported VPN URLs were found.")
-        return 0
+        print("\nNo supported VPN URLs were found.", file=sys.stderr)
+        return 1
 
     urls = [str(link) for link in links]
     print(f"\nFound {len(urls)} VPN URL(s):\n")
