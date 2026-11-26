@@ -1,0 +1,39 @@
+name: Version check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Require a version bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python - <<'PY'
+          import subprocess
+          import tomllib
+          from pathlib import Path
+
+          base = subprocess.run(
+              ["git", "show", f"{__import__('os').environ['BASE_SHA']}:pyproject.toml"],
+              check=True,
+              capture_output=True,
+          ).stdout
+          old = tomllib.loads(base.decode())["project"]["version"]
+          new = tomllib.loads(Path("pyproject.toml").read_text())["project"]["version"]
+
+          if old == new:
+              raise SystemExit(f"Version was not changed (still {new}); bump project.version in pyproject.toml.")
+          print(f"Version changed: {old} -> {new}")
+          PY
